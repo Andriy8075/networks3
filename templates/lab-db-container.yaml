@@ -1,0 +1,52 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    - uuid: d92ea16bd0324681b65a4920b941485f
+      template: lab-db-container
+      name: 'Lab database container'
+      description: 'Lab 3 custom template'
+      groups:
+        - name: Templates
+      items:
+        - uuid: 550f90f12e844dc19592510726f66c89
+          name: 'Database container status'
+          type: DEPENDENT
+          key: 'docker.container_info.state.status["db"]'
+          delay: '0'
+          value_type: CHAR
+          trends: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.State.Status
+          master_item:
+            key: 'docker.container_info["db",full]'
+          triggers:
+            - uuid: 50489f0ebc82454590b6883a505f8f26
+              expression: 'last(/lab-db-container/docker.container_info.state.status["db"])<>"running"'
+              name: 'Database container is not running'
+              priority: DISASTER
+        - uuid: 774404afaef440f5b04b3646d48aedd0
+          name: 'Database container inspect'
+          key: 'docker.container_info["db",full]'
+          delay: 30s
+          history: '0'
+          value_type: TEXT
+          trends: '0'
+        - uuid: 05bd27cdf1a2447e9615096473067811
+          name: 'Lab1 container db is running'
+          type: DEPENDENT
+          key: 'lab.container.up["db"]'
+          delay: '0'
+          preprocessing:
+            - type: JSONPATH
+              parameters:
+                - $.State.Status
+            - type: JAVASCRIPT
+              parameters:
+                - 'return value === ''running'' ? 1 : 0;'
+          master_item:
+            key: 'docker.container_info["db",full]'

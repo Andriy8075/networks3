@@ -1,0 +1,62 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    - uuid: 458f9ada658d4addba81af7fecd72040
+      template: lab-app-containers
+      name: 'Lab app containers'
+      description: 'Lab 3 custom template'
+      groups:
+        - name: Templates
+      discovery_rules:
+        - uuid: fc83c90fe93749cbaeb7241911df2336
+          name: 'Lab1 application containers'
+          key: docker.containers.discovery
+          delay: 30s
+          filter:
+            conditions:
+              - macro: '{#NAME}'
+                value: ^/code-app-
+                formulaid: A
+          item_prototypes:
+            - uuid: 82c8eac7c9e84629a8589ea8913d7fc0
+              name: 'Container {#NAME} status'
+              type: DEPENDENT
+              key: 'docker.container_info.state.status["{#NAME}"]'
+              delay: '0'
+              value_type: CHAR
+              trends: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - $.State.Status
+              master_item:
+                key: 'docker.container_info["{#NAME}",full]'
+              trigger_prototypes:
+                - uuid: b0514f2dcd7044b092ed7621a51579dd
+                  expression: 'last(/lab-app-containers/docker.container_info.state.status["{#NAME}"])<>"running"'
+                  name: 'Application container {#NAME} is not running'
+                  priority: HIGH
+            - uuid: 4da092fa87a142879371384f23780cf4
+              name: 'Container {#NAME} inspect'
+              key: 'docker.container_info["{#NAME}",full]'
+              delay: 30s
+              history: '0'
+              value_type: TEXT
+              trends: '0'
+            - uuid: 4b576e51c0e64ce2be569a587ca46d2a
+              name: 'Lab1 container {#NAME} is running'
+              type: DEPENDENT
+              key: 'lab.container.up["{#NAME}"]'
+              delay: '0'
+              preprocessing:
+                - type: JSONPATH
+                  parameters:
+                    - $.State.Status
+                - type: JAVASCRIPT
+                  parameters:
+                    - 'return value === ''running'' ? 1 : 0;'
+              master_item:
+                key: 'docker.container_info["{#NAME}",full]'

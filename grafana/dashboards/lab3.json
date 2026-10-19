@@ -1,0 +1,287 @@
+{
+  "id": 1,
+  "panels": [
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "zabbix"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "spanNulls": false
+          },
+          "unit": ""
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Lab infrastructure"
+          },
+          "host": {
+            "filter": "docker-host"
+          },
+          "item": {
+            "filter": "Lab1 proxy HTTP code"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          }
+        }
+      ],
+      "title": "Application availability",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "zabbix"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "spanNulls": false
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Lab infrastructure"
+          },
+          "host": {
+            "filter": "docker-host"
+          },
+          "item": {
+            "filter": "Lab1 proxy HTTP time"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          }
+        }
+      ],
+      "title": "Application response time",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "zabbix"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "spanNulls": false
+          },
+          "unit": ""
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 3,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Lab infrastructure"
+          },
+          "host": {
+            "filter": "docker-host"
+          },
+          "item": {
+            "filter": "/Lab1 container .* is running/"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          }
+        }
+      ],
+      "title": "Lab1 container state",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "zabbix"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "drawStyle": "line",
+            "spanNulls": false
+          },
+          "unit": "Bps"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 4,
+      "options": {
+        "legend": {
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "multi"
+        }
+      },
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "zabbix"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Lab infrastructure"
+          },
+          "host": {
+            "filter": "net-device"
+          },
+          "item": {
+            "filter": "Incoming rate on interface 2"
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "options": {
+            "showDisabledItems": false,
+            "skipEmptyValues": false
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          }
+        }
+      ],
+      "title": "SNMP interface traffic",
+      "type": "timeseries"
+    }
+  ],
+  "refresh": "30s",
+  "schemaVersion": 39,
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "title": "Lab3 infrastructure",
+  "uid": "lab3",
+  "version": 9
+}

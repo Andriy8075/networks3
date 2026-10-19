@@ -1,0 +1,41 @@
+zabbix_export:
+  version: '7.0'
+  template_groups:
+    - uuid: 7df96b18c230490a9a0a9e2307226338
+      name: Templates
+  templates:
+    - uuid: b8a786d8bf0f4c0b991a0cbe3a3a5e42
+      template: lab-interface-rate
+      name: 'Lab interface rate'
+      description: 'Lab 3 custom template'
+      groups:
+        - name: Templates
+      items:
+        - uuid: 61bbe805273b4b398376259ba6592daf
+          name: 'Incoming octets on interface 2'
+          type: SNMP_AGENT
+          snmp_oid: 1.3.6.1.2.1.31.1.1.1.6.2
+          key: 'net.if.in.octets[2]'
+          delay: 30s
+          units: B
+        - uuid: c39d768a10934cb9b9e6034a189a59e1
+          name: 'Incoming rate on interface 2'
+          type: DEPENDENT
+          key: 'net.if.in.rate[2]'
+          delay: '0'
+          value_type: FLOAT
+          units: Bps
+          preprocessing:
+            - type: CHANGE_PER_SECOND
+              parameters:
+                - ''
+          master_item:
+            key: 'net.if.in.octets[2]'
+          triggers:
+            - uuid: 8e5d6f338153406d9b09742ca75c2a07
+              expression: 'last(/lab-interface-rate/net.if.in.rate[2])>{$IF_RATE_MAX}'
+              name: 'Interface input rate is above {$IF_RATE_MAX}'
+              priority: AVERAGE
+      macros:
+        - macro: '{$IF_RATE_MAX}'
+          value: '100000000'

@@ -1,0 +1,5 @@
+.env
+__pycache__/
+*.pyc
+bootstrap/state/*
+!bootstrap/state/.gitkeep
